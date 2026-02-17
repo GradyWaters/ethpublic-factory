@@ -3,13 +3,19 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>EthPublic Admin</title>
+    <title>Admin</title>
   </head>
   <body>
-    <!-- Decap CMS mount point -->
     <div id="nc-root"></div>
 
-    <!-- Decap (Netlify) CMS -->
+    <script>
+      // Force Decap to load config from /admin/config.yml
+      window.CMS_MANUAL_INIT = true;
+    </script>
+
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      CMS.init({ config: { load_config_file: true } });
+    </script>
   </body>
 </html>
