@@ -1,5 +1,7 @@
 backend:
-  name: test-repo
+  name: github
+  repo: GradyWaters/ethpublic-factory
+  branch: main
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
