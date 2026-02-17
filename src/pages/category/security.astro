@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("posts");
+const filtered = posts
+  .filter((p) => (p.data.category || "").toLowerCase() === "security")
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="Security Guides">
+  <h1>Security</h1>
+  <p>Latest security guides:</p>
+
+  <ul>
+    {filtered.map((post) => (
+      <li style="margin: 10px 0;">
+        <a href={`/guides/${post.slug}`}>{post.data.title}</a>
+        <div style="font-size: 13px; color: #666;">
+          {post.data.description}
+        </div>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

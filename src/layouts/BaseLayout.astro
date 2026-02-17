@@ -1,0 +1,109 @@
+---
+import { getSiteConfig } from "../engine/config.js";
+const site = getSiteConfig();
+const { title = site.siteName } = Astro.props;
+
+const cssVars = `--bg:${site.colors.background};--text:${site.colors.text};--accent:${site.colors.accent};`;
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+
+    <style is:global>
+      body{
+        margin:0;
+        font-family: system-ui;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      header{
+        border-bottom:1px solid #e8e8e8;
+        background:#fff;
+      }
+
+      .container{
+        max-width:1000px;
+        margin:0 auto;
+        padding:16px 24px;
+      }
+
+      .brand{
+        display:flex;
+        flex-direction:column;
+        margin-bottom:14px;
+      }
+
+      .name{
+        font-weight:700;
+        font-size:20px;
+      }
+
+      .tag{
+        font-size:13px;
+        color:#666;
+      }
+
+      .nav{
+        display:flex;
+        gap:22px;
+        flex-wrap:wrap;
+      }
+
+      .nav a{
+        font-weight:500;
+      }
+
+      main{
+        max-width:900px;
+        margin:40px auto;
+        padding:0 24px;
+      }
+
+      footer{
+        border-top:1px solid #e8e8e8;
+        padding:30px 24px;
+        margin-top:60px;
+        color:#666;
+        font-size:14px;
+        text-align:center;
+      }
+
+      a{
+        color: var(--accent);
+        text-decoration:none;
+      }
+
+      a:hover{
+        text-decoration:underline;
+      }
+    </style>
+  </head>
+
+  <body style={cssVars}>
+
+    <header>
+      <div class="container">
+        <div class="brand">
+          <span class="name">{site.siteName}</span>
+          <span class="tag">{site.tagline}</span>
+        </div>
+
+        <nav class="nav">
+          {site.nav.map((item) => (
+            <a href={item.href}>{item.label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>© {new Date().getFullYear()} {site.siteName}</footer>
+
+  </body>
+</html>

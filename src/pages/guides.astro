@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("posts");
+const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="Guides">
+  <h1>Guides</h1>
+  <p>Latest guides:</p>
+
+  <ul>
+    {sorted.map((post) => (
+      <li style="margin: 10px 0;">
+        <a href={`/guides/${post.slug}`}>{post.data.title}</a>
+        <div style="font-size: 13px; color: #666;">
+          {post.data.description}
+        </div>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
