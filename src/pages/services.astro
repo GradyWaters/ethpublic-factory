@@ -10,7 +10,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .hero-price { font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--gray); }
     .hero-price strong { color:var(--accent2); font-size:20px; }
     .section-label { font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:3px; color:var(--gray); text-align:center; margin-bottom:40px; }
-    .packages-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:64px; }
+    .packages-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:800px; margin:0 auto 64px; }
     .package-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:32px; position:relative; transition:border-color 0.2s; }
     .package-card:hover { border-color:var(--accent); }
     .package-card.featured { border-color:var(--accent); }
@@ -62,6 +62,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <div class="section-label">Choose Your Session</div>
   <div class="packages-grid">
+
     <div class="package-card">
       <div class="package-name">Basic</div>
       <div class="package-price">$49<span> / session</span></div>
@@ -73,7 +74,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <li>First transaction walkthrough</li>
         <li>Follow-up email summary</li>
       </ul>
-      <a href="https://calendly.com/ethpublic/basic-wallet-setup">Book Basic →</a>
+      <a href="https://calendly.com/ethpublic/basic-wallet-setup" class="package-btn btn-secondary">Book Basic →</a>
     </div>
 
     <div class="package-card featured">
@@ -92,20 +93,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <a href="https://calendly.com/ethpublic/complete-wallet-setup" class="package-btn btn-primary">Book Complete →</a>
     </div>
 
-    <div class="package-card">
-      <div class="package-name">Security Audit</div>
-      <div class="package-price">$79<span> / session</span></div>
-      <div class="package-desc">Already have a wallet? Let's make sure it's locked down properly.</div>
-      <ul class="package-features">
-        <li>60-minute Zoom call</li>
-        <li>Wallet security review</li>
-        <li>Permissions audit (revoke.cash)</li>
-        <li>Phishing protection setup</li>
-        <li>Recovery plan review</li>
-        <li>Written security report</li>
-      </ul>
-      <a href="https://calendly.com/ethpublic/security-audit" class="package-btn btn-secondary">Book Audit →</a>
-    </div>
   </div>
 
   <div class="how-section">
@@ -120,7 +107,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="step">
           <div class="step-number">2</div>
           <div class="step-title">Get a Link</div>
-          <div class="step-desc">You'll receive a Zoom link and a short prep checklist by email.</div>
+          <div class="step-desc">You'll receive a Google Meet link and a short prep checklist by email.</div>
         </div>
         <div class="step">
           <div class="step-number">3</div>
@@ -155,7 +142,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
       <div class="faq-item">
         <div class="faq-q">What do I need before the call?</div>
-        <div class="faq-a">Just a computer with internet access and a Zoom account. You'll get a prep checklist by email after booking.</div>
+        <div class="faq-a">Just a computer with internet access. You'll get a prep checklist by email after booking.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Is my information safe?</div>
@@ -163,7 +150,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
       <div class="faq-item">
         <div class="faq-q">What if I have questions after the call?</div>
-        <div class="faq-a">Complete and Audit sessions include 30-day email support. Basic sessions include a follow-up summary email.</div>
+        <div class="faq-a">Complete sessions include 30-day email support. Basic sessions include a follow-up summary email.</div>
       </div>
     </div>
   </div>
@@ -173,4 +160,5 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <p>Book your session today and have a working, secure Ethereum wallet by tomorrow.</p>
     <a href="https://calendly.com/ethpublic/basic-wallet-setup" class="cta-btn">Book a Session →</a>
   </div>
+
 </BaseLayout>
