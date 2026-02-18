@@ -1,13 +1,33 @@
 ---
 import { getSiteConfig } from "../engine/config.js";
 const site = getSiteConfig();
-const { title = site.siteName } = Astro.props;
+const { 
+  title = site.siteName,
+  description = "EthPublic — Clear guides, safer onchain moves. Daily Ethereum news and education for everyone.",
+  image = "/og-default.png"
+} = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, "https://ethpublic-factory.pages.dev");
 ---
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="EthPublic" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <style is:global>
@@ -61,14 +81,14 @@ const { title = site.siteName } = Astro.props;
     </div>
     <header>
       <div class="header-inner">
-        <div class="logo">
+        <a href="/" class="logo">
           <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
             <polygon points="18,2 34,18 18,34 2,18" fill="none" stroke="#627eea" stroke-width="1.5"/>
             <polygon points="18,8 28,18 18,28 8,18" fill="#627eea" opacity="0.3"/>
             <polygon points="18,13 23,18 18,23 13,18" fill="#627eea"/>
           </svg>
           <div class="logo-text">Eth<span>Public</span></div>
-        </div>
+        </a>
         <nav>
           <a href="/">News</a>
           <a href="/guides">Guides</a>
@@ -86,7 +106,6 @@ const { title = site.siteName } = Astro.props;
         <div class="footer-logo">Eth<span>Public</span></div>
         <div class="footer-copy">© {new Date().getFullYear()} EthPublic</div>
         <div class="footer-links">
-          <a href="/start-here">About</a>
           <a href="/services">Contact</a>
         </div>
       </div>
@@ -104,3 +123,27 @@ const { title = site.siteName } = Astro.props;
     </script>
   </body>
 </html>
+```
+
+Now go edit `src/pages/guides/[slug].astro` and change the top frontmatter section from:
+```
+const { post } = Astro.props;
+const { Content } = await post.render();
+```
+
+To:
+```
+const { post } = Astro.props;
+const { Content } = await post.render();
+const seoTitle = `${post.data.title} — EthPublic`;
+const seoDescription = post.data.description;
+```
+
+And change the layout line from:
+```
+<BaseLayout title={post.data.title}>
+```
+
+To:
+```
+<BaseLayout title={seoTitle} description={seoDescription}>
