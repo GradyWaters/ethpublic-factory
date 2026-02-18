@@ -6,7 +6,7 @@ const {
   description = "EthPublic — Clear guides, safer onchain moves. Daily Ethereum news and education for everyone.",
   image = "/og-default.png"
 } = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname, "https://ethpublic-factory.pages.dev");
+
 ---
 <html lang="en">
   <head>
@@ -14,11 +14,10 @@ const canonicalURL = new URL(Astro.url.pathname, "https://ethpublic-factory.page
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL} />
+    
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="EthPublic" />
