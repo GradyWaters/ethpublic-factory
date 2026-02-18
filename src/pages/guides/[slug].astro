@@ -12,8 +12,10 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+const seoTitle = `${post.data.title} — EthPublic`;
+const seoDescription = post.data.description;
 ---
-<BaseLayout title={post.data.title}>
+<BaseLayout title={seoTitle} description={seoDescription}>
   <style>
     .article-header { margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
     .article-cat { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
