@@ -6,18 +6,10 @@ category: security
 ---
 Never connect your wallet to random mint sites.
 
+## Always verify:
 
-
-\## Always verify:
-
-
-
-\- Domain spelling
-
-\- Contract address
-
-\- Revoke.cash permissions
-
-
+- Domain spelling
+- Contract address
+- Revoke.cash permissions
 
 If a site pressures you — it's a scam.
