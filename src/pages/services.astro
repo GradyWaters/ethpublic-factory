@@ -1,8 +1,176 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
+<BaseLayout title="Wallet Setup Service — EthPublic">
+  <style>
+    .page-hero { text-align:center; padding:48px 0 40px; border-bottom:1px solid var(--border); margin-bottom:64px; }
+    .hero-tag { font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--accent); text-transform:uppercase; letter-spacing:2px; margin-bottom:20px; }
+    .hero-title { font-family:'Playfair Display',serif; font-size:52px; font-weight:900; line-height:1.1; letter-spacing:-1px; margin-bottom:20px; }
+    .hero-subtitle { font-size:18px; color:#b0b0c8; max-width:600px; margin:0 auto 24px; line-height:1.7; }
+    .hero-price { font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--gray); }
+    .hero-price strong { color:var(--accent2); font-size:20px; }
+    .section-label { font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:3px; color:var(--gray); text-align:center; margin-bottom:40px; }
+    .packages-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:64px; }
+    .package-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:32px; position:relative; transition:border-color 0.2s; }
+    .package-card:hover { border-color:var(--accent); }
+    .package-card.featured { border-color:var(--accent); }
+    .featured-badge { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--accent); color:var(--white); font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:1px; padding:4px 14px; border-radius:20px; white-space:nowrap; }
+    .package-name { font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:2px; color:var(--gray); margin-bottom:12px; }
+    .package-price { font-family:'Playfair Display',serif; font-size:40px; font-weight:900; margin-bottom:4px; }
+    .package-price span { font-size:20px; color:var(--gray); }
+    .package-desc { font-size:14px; color:#8888a0; margin-bottom:24px; line-height:1.6; }
+    .package-features { list-style:none; margin-bottom:32px; }
+    .package-features li { font-size:14px; color:#c0c0d8; padding:8px 0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
+    .package-features li::before { content:'✓'; color:var(--accent); font-weight:700; flex-shrink:0; }
+    .package-btn { display:block; text-align:center; padding:14px; border-radius:6px; font-weight:600; font-size:15px; transition:background 0.2s; }
+    .btn-primary { background:var(--accent); color:var(--white); }
+    .btn-primary:hover { background:#7b93f5; }
+    .btn-secondary { background:transparent; color:var(--accent); border:1px solid var(--accent); }
+    .btn-secondary:hover { background:var(--accent); color:var(--white); }
+    .how-section { border-top:1px solid var(--border); padding:64px 0; margin:0 -24px; }
+    .how-inner { max-width:900px; margin:0 auto; padding:0 24px; }
+    .how-title { font-family:'Playfair Display',serif; font-size:36px; font-weight:900; text-align:center; margin-bottom:48px; }
+    .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:32px; }
+    .step { text-align:center; }
+    .step-number { width:48px; height:48px; background:var(--card); border:1px solid var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-family:'IBM Plex Mono',monospace; font-size:16px; color:var(--accent); font-weight:700; }
+    .step-title { font-weight:600; font-size:15px; margin-bottom:8px; }
+    .step-desc { font-size:13px; color:var(--gray); line-height:1.6; }
+    .about-section { max-width:700px; margin:64px auto; }
+    .about-inner { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:40px; display:grid; grid-template-columns:auto 1fr; gap:32px; align-items:center; }
+    .about-avatar { width:80px; height:80px; background:linear-gradient(135deg,#1a1a3e,#627eea); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Playfair Display',serif; font-size:32px; font-weight:900; flex-shrink:0; }
+    .about-text h3 { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; margin-bottom:8px; }
+    .about-text p { font-size:14px; color:#8888a0; line-height:1.7; }
+    .faq-section { border-top:1px solid var(--border); padding:64px 0; margin:0 -24px; }
+    .faq-inner { max-width:700px; margin:0 auto; padding:0 24px; }
+    .faq-title { font-family:'Playfair Display',serif; font-size:36px; font-weight:900; text-align:center; margin-bottom:40px; }
+    .faq-item { border-bottom:1px solid var(--border); padding:20px 0; }
+    .faq-q { font-weight:600; font-size:16px; margin-bottom:10px; }
+    .faq-a { font-size:14px; color:#8888a0; line-height:1.7; }
+    .bottom-cta { background:linear-gradient(135deg,#0f1a3d,#162040); border:1px solid #2a3a6e; border-radius:12px; padding:48px; text-align:center; margin-top:64px; }
+    .bottom-cta h2 { font-family:'Playfair Display',serif; font-size:36px; font-weight:900; margin-bottom:16px; }
+    .bottom-cta p { font-size:16px; color:#8888a0; margin-bottom:32px; }
+    .cta-btn { display:inline-block; background:var(--accent); color:var(--white); padding:16px 36px; border-radius:6px; font-weight:600; font-size:16px; }
+    .cta-btn:hover { background:#7b93f5; }
+  </style>
 
-<BaseLayout title="Services">
-  <h1>Services</h1>
-  <p>Help with wallets, ENS, and onchain safety.</p>
+  <div class="page-hero">
+    <div class="hero-tag">Personal Wallet Setup Service</div>
+    <h1 class="hero-title">Get Your Wallet Set Up Right — The First Time</h1>
+    <p class="hero-subtitle">Book a private 1-on-1 session with Jon. We'll set up your Ethereum wallet together on a live video call. No jargon, no confusion, just a safe setup done right.</p>
+    <div class="hero-price">Sessions starting at <strong>$49</strong></div>
+  </div>
+
+  <div class="section-label">Choose Your Session</div>
+  <div class="packages-grid">
+    <div class="package-card">
+      <div class="package-name">Basic</div>
+      <div class="package-price">$49<span> / session</span></div>
+      <div class="package-desc">Perfect for beginners who just need a wallet set up safely and quickly.</div>
+      <ul class="package-features">
+        <li>45-minute Zoom call</li>
+        <li>Software wallet setup (MetaMask)</li>
+        <li>Seed phrase safety training</li>
+        <li>First transaction walkthrough</li>
+        <li>Follow-up email summary</li>
+      </ul>
+      <a href="https://calendly.com" class="package-btn btn-secondary">Book Basic →</a>
+    </div>
+
+    <div class="package-card featured">
+      <div class="featured-badge">Most Popular</div>
+      <div class="package-name">Complete</div>
+      <div class="package-price">$99<span> / session</span></div>
+      <div class="package-desc">Full setup including hardware wallet and ENS name registration.</div>
+      <ul class="package-features">
+        <li>90-minute Zoom call</li>
+        <li>Hardware wallet setup (Ledger)</li>
+        <li>Software wallet setup (MetaMask)</li>
+        <li>ENS name registration</li>
+        <li>Security best practices</li>
+        <li>30-day email support</li>
+      </ul>
+      <a href="https://calendly.com" class="package-btn btn-primary">Book Complete →</a>
+    </div>
+
+    <div class="package-card">
+      <div class="package-name">Security Audit</div>
+      <div class="package-price">$79<span> / session</span></div>
+      <div class="package-desc">Already have a wallet? Let's make sure it's locked down properly.</div>
+      <ul class="package-features">
+        <li>60-minute Zoom call</li>
+        <li>Wallet security review</li>
+        <li>Permissions audit (revoke.cash)</li>
+        <li>Phishing protection setup</li>
+        <li>Recovery plan review</li>
+        <li>Written security report</li>
+      </ul>
+      <a href="https://calendly.com" class="package-btn btn-secondary">Book Audit →</a>
+    </div>
+  </div>
+
+  <div class="how-section">
+    <div class="how-inner">
+      <h2 class="how-title">How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-title">Book a Time</div>
+          <div class="step-desc">Pick a time that works for you using our simple booking calendar.</div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-title">Get a Link</div>
+          <div class="step-desc">You'll receive a Zoom link and a short prep checklist by email.</div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-title">We Meet Live</div>
+          <div class="step-desc">Jon walks you through everything step by step on a live video call.</div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-title">You're Set Up</div>
+          <div class="step-desc">Leave with a working wallet and the confidence to use it.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-section">
+    <div class="about-inner">
+      <div class="about-avatar">J</div>
+      <div class="about-text">
+        <h3>About Jon Aretakis</h3>
+        <p>Jon is a journalist and Ethereum educator who has been writing about crypto since the early days. He's helped hundreds of readers understand and safely use Ethereum through his work at EthPublic. His sessions are patient, jargon-free, and focused on keeping your assets safe.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-section">
+    <div class="faq-inner">
+      <h2 class="faq-title">Common Questions</h2>
+      <div class="faq-item">
+        <div class="faq-q">Do I need any technical experience?</div>
+        <div class="faq-a">None at all. These sessions are designed for complete beginners. If you can use a web browser, you can do this.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What do I need before the call?</div>
+        <div class="faq-a">Just a computer with internet access and a Zoom account. You'll get a prep checklist by email after booking.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is my information safe?</div>
+        <div class="faq-a">You should never share your seed phrase with anyone — including Jon. The session is about teaching you, not accessing your wallet for you.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if I have questions after the call?</div>
+        <div class="faq-a">Complete and Audit sessions include 30-day email support. Basic sessions include a follow-up summary email.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-cta">
+    <h2>Ready to Get Started?</h2>
+    <p>Book your session today and have a working, secure Ethereum wallet by tomorrow.</p>
+    <a href="https://calendly.com" class="cta-btn">Book a Session →</a>
+  </div>
 </BaseLayout>
