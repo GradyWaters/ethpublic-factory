@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: GradyWaters/ethpublic-factory
   branch: main
+  base_url: https://ethpublic-cms-oauth.jonaretakis.workers.dev
+  auth_endpoint: /auth
 
 media_folder: public/uploads
 public_folder: /uploads
