@@ -3,10 +3,8 @@ import { getSiteConfig } from "../engine/config.js";
 const site = getSiteConfig();
 const { 
   title = site.siteName,
-  description = "EthPublic — Clear guides, safer onchain moves. Daily Ethereum news and education for everyone.",
-  image = "/og-default.png"
+  description = "EthPublic — Clear guides, safer onchain moves. Daily Ethereum news and education for everyone."
 } = Astro.props;
-
 ---
 <html lang="en">
   <head>
@@ -14,19 +12,13 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    
-
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="EthPublic" />
-
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <style is:global>
@@ -46,7 +38,6 @@ const {
       .topbar-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; justify-content:space-between; align-items:center; }
       .topbar-right { display:flex; gap:20px; }
       .topbar-right a:hover { color:var(--accent); }
-      .eth-price { color:var(--accent2); }
       header { border-bottom:1px solid var(--border); padding:20px 0; }
       .header-inner { max-width:1200px; margin:0 auto; padding:0 24px; display:flex; align-items:center; justify-content:space-between; }
       .logo { display:flex; align-items:center; gap:12px; }
@@ -73,7 +64,6 @@ const {
       <div class="topbar-inner">
         <span>EthPublic — Clear guides, safer onchain moves.</span>
         <div class="topbar-right">
-          <a href="/guides">Newsletter</a>
           <a href="/services">Wallet Setup →</a>
         </div>
       </div>
@@ -90,7 +80,7 @@ const {
         </a>
         <nav>
           <a href="/">News</a>
-          <a href="/guides">Guides</a>
+          <a href="/services">Guides</a>
           <a href="/category/security">Security</a>
           <a href="/category/ens">ENS</a>
           <a href="/services" class="nav-cta">Setup My Wallet</a>
@@ -122,26 +112,3 @@ const {
     </script>
   </body>
 </html>
-```
-
-Now go edit `src/pages/guides/[slug].astro` and change the top frontmatter section from:
-```
-const { post } = Astro.props;
-const { Content } = await post.render();
-```
-
-To:
-```
-const { post } = Astro.props;
-const { Content } = await post.render();
-
-```
-
-And change the layout line from:
-```
-<BaseLayout title={post.data.title}>
-```
-
-To:
-```
-<BaseLayout title={seoTitle} description={seoDescription}>
