@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html><body>
+<script>
+var hash = window.location.hash.substring(1);
+var params = {};
+hash.split('&').forEach(function(p) {
+  var parts = p.split('=');
+  params[parts[0]] = decodeURIComponent(parts[1]);
+});
+window.opener.postMessage(
+  'authorization:github:success:' + JSON.stringify({token: params.token, provider: 'github'}),
+  '*'
+);
+window.close();
+</script>
+</body></html>
