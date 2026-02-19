@@ -7,10 +7,13 @@ hash.split('&').forEach(function(p) {
   var parts = p.split('=');
   params[parts[0]] = decodeURIComponent(parts[1]);
 });
-window.opener.postMessage(
-  'authorization:github:success:' + JSON.stringify({token: params.token, provider: 'github'}),
-  '*'
-);
-window.close();
+var msg = 'authorization:github:success:' + JSON.stringify({token: params.token, provider: 'github'});
+if (window.opener) {
+  window.opener.postMessage(msg, '*');
+  window.close();
+} else {
+  localStorage.setItem('decap-auth', msg);
+  window.location.href = '/admin/';
+}
 </script>
 </body></html>
